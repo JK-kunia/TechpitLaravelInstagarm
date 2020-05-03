@@ -41,10 +41,9 @@ class PostsController extends Controller
         $post = new Post;
         $post->caption = $request->caption;
         $post->user_id = Auth::user()->id;
-
+        $post->image = base64_encode(file_get_contents($request->photo));
         $post->save();
         
-        $request->photo->storeAs('public/post_images', $post->id . '.jpg');
         return redirect('/');
     }
     
